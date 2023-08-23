@@ -86,7 +86,7 @@ SELECT COUNT(sakila.film.title) FROM sakila.film;
 SELECT COUNT(sakila.film.rating), sakila.film.rating FROM sakila.film
 GROUP BY sakila.film.rating;
 
--- The number of films for each rating, and sort the results in descending order of the number of films
+-- 1.3 The number of films for each rating, and sort the results in descending order of the number of films
 
 SELECT COUNT(sakila.film.rating), sakila.film.rating FROM sakila.film
 GROUP BY sakila.film.rating
@@ -102,10 +102,23 @@ GROUP BY sakila.rental.staff_id;
 
 -- 3.1 Using the film table, determine - The mean film duration for each rating, and sort the results in descending order of the mean duration
 
-SELECT COUNT(sakila.film.rating), sakila.film.rating FROM sakila.film
-GROUP BY sakila.film.rating;
+SELECT rating, COUNT(film.rating) AS "Films_per_Rating",ROUND(AVG(length),0) AS "Average_length"
+FROM sakila.film
+GROUP BY film.rating
+ORDER BY AVG(length) DESC;
+
+-- 3.2 Identify which ratings have a mean duration of over two hours, to help us select films for customers who prefer longer movies.
+
+SELECT AVG(length) >=120 AS "AVG_over_2Hours", rating
+FROM sakila.film
+GROUP BY film.rating
+ORDER BY AVG(length) DESC;
 
 
-ALTER TABLE sakila.film
-ADD column_name data_type [column_constraints];
+-- Determine which last names are not repeated in the table actor.*/
+
+SELECT last_name, COUNT(last_name)
+FROM sakila.actor
+GROUP BY last_name
+HAVING COUNT(last_name)=1;
 
