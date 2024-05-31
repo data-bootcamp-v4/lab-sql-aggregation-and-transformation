@@ -111,3 +111,50 @@ git push origin master
 ```
 
 - Paste the link of your lab in Student Portal.
+
+- I
+-- 1. You need to use SQL built-in functions to gain insights relating to the duration of movies
+-- 1.1 Determine the shortest and longest movie durations and name the values as max_duration and min_duration
+select * from film 
+select min(length) as min_duration from film;
+select max(length) as max_duration from film;
+
+-- 1.2. Express the average movie duration in hours and minutes. Don't use decimals
+select avg(length) as average_duration
+round(average_duration)
+from film;
+
+-- 2. You need to gain insights related to rental dates
+select weekday(rental_date)
+from sakila.rental;
+
+select dayname(rental_date)
+from sakila.rental;
+
+select dayofweek(rental_date)
+from sakila.rental;
+
+
+II
+1.2
+select rating.count(film_id) as number_of_films
+from film
+groub by rating;
+order by number_of_films
+1.3
+select rating.count(film_id) as number_of_films
+from film
+groub by rating;
+order by number_of_films
+
+2.1
+select rating, round(avg(len), 2) as avg_duration
+from film
+group by rating
+order by avg_duration desc
+
+2.2
+select rating, avg(length) as average_duration
+from film
+group by rating
+having average_duration > 120;
