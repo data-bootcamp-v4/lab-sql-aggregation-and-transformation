@@ -1,9 +1,12 @@
 USE sakila;
 
 SELECT 
-    MAX(length) AS max_duration,
-    MIN(length) AS min_duration
-FROM film;
+    title,
+    length
+FROM film
+WHERE length = (SELECT MAX(length) FROM film)
+   OR length = (SELECT MIN(length) FROM film);
+
 
 SELECT 
     FLOOR(AVG(length) / 60) AS avg_hours,
