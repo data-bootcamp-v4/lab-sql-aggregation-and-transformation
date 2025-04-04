@@ -40,6 +40,7 @@ Before this starting this lab, you should have learnt about:
 
 ## Introduction
 
+
 Welcome to the SQL Data Aggregation and Transformation lab!
 
 In this lab, you will practice how to use SQL queries to extract insights from the  [Sakila](https://dev.mysql.com/doc/sakila/en/) database which contains information about movie rentals. 
