@@ -59,11 +59,101 @@ You can also refer to the Entity Relationship Diagram (ERD) of the database to g
 Imagine you work at a movie rental company as an analyst. By using SQL in the challenges below, you are required to gain insights into different elements of its business operations.
 
 ## Challenge 1
+USE sakila;
+-- 1.1
+SELECT 
+    MAX(length) AS max_duration,
+    MIN(length) AS min_duration
+FROM film;
+-- 1.2
+SELECT 
+    FLOOR(AVG(length) / 60) AS avg_hours,
+    MOD(ROUND(AVG(length)), 60) AS avg_minutes
+FROM film;
+-- 2.1
+SELECT 
+    DATEDIFF(MAX(rental_date), MIN(rental_date)) AS days_operating
+FROM rental;
+-- 2.2
+SELECT 
+    rental_id,
+    rental_date,
+    MONTHNAME(rental_date) AS rental_month,
+    DAYNAME(rental_date) AS rental_weekday
+FROM rental
+LIMIT 20;
+-- 2.3
+SELECT 
+    rental_id,
+    rental_date,
+    DAYNAME(rental_date) AS rental_weekday,
+    CASE 
+        WHEN DAYOFWEEK(rental_date) IN (1, 7) THEN 'weekend'
+        ELSE 'workday'
+    END AS day_type
+FROM rental
+LIMIT 20;
+-- 3
+SELECT 
+    title,
+    IFNULL(rental_duration, 'Not Available') AS rental_duration
+FROM film
+ORDER BY title ASC;
+-- 4
+SELECT 
+    CONCAT(first_name, ' ', last_name) AS full_name,
+    SUBSTRING(email, 1, 3) AS email_start
+FROM customer
+ORDER BY last_name ASC;
+
+-- CHALLENGE 2
+-- 1.1
+SELECT COUNT(*) AS total_films
+FROM film;
+-- 1.2
+SELECT rating, COUNT(*) AS film_count
+FROM film
+GROUP BY rating
+ORDER BY film_count DESC;
+-- 1.3
+SELECT rating, COUNT(*) AS film_count
+FROM film
+GROUP BY rating
+ORDER BY film_count DESC;
+-- 2.1
+SELECT 
+    rating,
+    ROUND(AVG(length), 2) AS avg_duration
+FROM film
+GROUP BY rating
+ORDER BY avg_duration DESC;
+-- 2.2
+SELECT 
+    rating,
+    ROUND(AVG(length), 2) AS avg_duration
+FROM film
+GROUP BY rating
+HAVING avg_duration > 120
+ORDER BY avg_duration DESC;
+-- 3
+SELECT last_name
+FROM actor
+GROUP BY last_name
+HAVING COUNT(*) = 1;
+
+
+
+
+
+
+
+
 
 1. You need to use SQL built-in functions to gain insights relating to the duration of movies:
 	- 1.1 Determine the **shortest and longest movie durations** and name the values as `max_duration` and `min_duration`.
 	- 1.2. Express the **average movie duration in hours and minutes**. Don't use decimals.
       - *Hint: Look for floor and round functions.*
+	
 2. You need to gain insights related to rental dates:
 	- 2.1 Calculate the **number of days that the company has been operating**.
       - *Hint: To do this, use the `rental` table, and the `DATEDIFF()` function to subtract the earliest date in the `rental_date` column from the latest date.*
@@ -111,3 +201,4 @@ git push origin master
 ```
 
 - Paste the link of your lab in Student Portal.
+
