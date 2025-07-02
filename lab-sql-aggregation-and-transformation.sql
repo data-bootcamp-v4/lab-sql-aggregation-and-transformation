@@ -9,7 +9,7 @@ from film;
 -- 1.2. Express the average movie duration in hours and minutes. Don't use decimals.
 -- Hint: Look for floor and round functions.
 
-select round(avg(film.length)/60, 0) as avg_hours, floor(avg(film.length)) as avg_minutes
+select round(avg(film.length)/60, 0) as avg_hours, floor(avg(film.length) % 60) as avg_minutes
 from sakila.film;
 
 -- 2. You need to gain insights related to rental dates:
@@ -21,7 +21,8 @@ from sakila.rental;
 
 -- 2.2 Retrieve rental information and add two additional columns to show the month and weekday of the rental. Return 20 rows of results.
 select rental_id, customer_id, rental_date, DATE_FORMAT(CONVERT(rental_date, DATE), '%M') as rental_month, DATE_FORMAT(CONVERT(rental_date, DATE), '%W') as weekday_of_rental
-from sakila.rental;
+from sakila.rental
+limit 20;
 
 -- 2.3 Bonus: Retrieve rental information and add an additional column called DAY_TYPE with values 'weekend' or 'workday', depending on the day of the week.
 -- Hint: use a conditional expression.
@@ -71,7 +72,7 @@ order by number_of_films desc;
 select round(avg(length),2) as average_length, rating
 from sakila.film
 group by rating
-order by rating desc;
+order by average_length desc;
 
 -- 2.2 Identify which ratings have a mean duration of over two hours in order to help select films for customers who prefer longer movies.
 select rating, round(avg(film.length),2) as average_length
