@@ -60,7 +60,7 @@ GROUP BY(rating)
 ORDER BY mean_duration DESC;
 #2.2 Identify which ratings have a mean duration of over two hours in order to help select films for customers who prefer 
 #longer movies.
-SELECT (avg(length)) AS mean_duration, rating
+SELECT (avg(length)/60) AS mean_duration, rating
 FROM film
 GROUP BY(rating)
-HAVING mean_duration >120;
+HAVING mean_duration >2;
