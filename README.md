@@ -78,7 +78,7 @@ Imagine you work at a movie rental company as an analyst. By using SQL in the ch
 
 ## Challenge 2
 
-1. Next, you need to analyze the films in the collection to gain some more insights. Using the `film` table, determine:
+1. Next, you need to analyze the films in the collection to gain so me more insights. Using the `film` table, determine:
 	- 1.1 The **total number of films** that have been released.
 	- 1.2 The **number of films for each rating**.
 	- 1.3 The **number of films for each rating, sorting** the results in descending order of the number of films.
