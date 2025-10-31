@@ -8,9 +8,9 @@ USE sakila;
 1.2. Express the average movie duration in hours and minutes. Don't use decimals.
 Hint: Look for floor and round functions.*/
 
-SELECT MIN(length) AS min_duration FROM film;
-SELECT MAX(length) AS max_duration FROM film;
-SELECT FLOOR(AVG(length)) AS avg_duration FROM film;
+SELECT MAX(length) AS max_duration, MIN(length) AS min_duration FROM film;
+
+SELECT FLOOR(AVG(length)/60) AS hours, ROUND(AVG(length)%60) AS minutes  FROM film;
 
 /*2. You need to gain insights related to rental dates:
 
@@ -34,8 +34,8 @@ LIMIT 20;
 
 SELECT rental_id, rental_date,
 CASE 
-    WHEN MONTHNAME(rental_date) = 'Saturday' THEN 'Weekend'
-    WHEN MONTHNAME(rental_date) = 'Sunday' THEN 'Weekend'
+    WHEN DAYNAME(rental_date) = 'Saturday' THEN 'Weekend'
+    WHEN DAYNAME(rental_date) = 'Sunday' THEN 'Weekend'
     ELSE 'Workday'
 END AS day_type
 FROM rental;
@@ -101,3 +101,9 @@ ORDER BY mean_duration DESC;
 /*3. Bonus: determine which last names are not repeated in the table actor.*/
 
 SELECT DISTINCT last_name FROM actor;
+
+SELECT last_name
+FROM actor
+GROUP BY last_name
+HAVING COUNT(*) = 1
+ORDER BY last_name;
