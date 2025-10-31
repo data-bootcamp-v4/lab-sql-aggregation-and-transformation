@@ -16,7 +16,7 @@ limit 20;
 #2.3
 select*,date_format(rental_date,'%W') as weekday ,
 case
-when date_format(rental_date,'%W')  in ("Monday","Tuesday","Wednesday","Thrusday","Friday") then "workday"
+when date_format(rental_date,'%W')  in ("Monday","Tuesday","Wednesday","Thursday","Friday") then "workday"
 else "weekend"
 end as day_type
 from rental;
@@ -49,3 +49,10 @@ having avg_duration>120;
 
 #bonus
 SELECT last_name FROM actor GROUP BY last_name HAVING COUNT(*) = 1;
+
+select min(length) as min_duration,
+max(length) as max_duration 
+from film;
+
+select floor(avg(length))
+ from film;
