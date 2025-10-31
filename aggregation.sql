@@ -1,28 +1,31 @@
 use sakila;
 #1.1
-select min(length) as min_duration,max(length) as max_duration from film;
+select min(length) as min_duration,
+max(length) as max_duration 
+from film;
 #1.2
-select floor(avg(length)) from film;
+select floor(avg(length))
+ from film;
 #2.1
 SELECT 
   DATEDIFF(MAX(rental_date), MIN(rental_date)) AS operating_days
 FROM rental;
 #2.2
-select*,month(rental_date) as month,weekday(rental_date) as weekday from rental
+select*,date_format(rental_date,'%M') as month,date_format(rental_date,'%W') as weekday from rental
 limit 20;
 #2.3
-select*,weekday(rental_date) as weekday ,
+select*,date_format(rental_date,'%W') as weekday ,
 case
-when weekday(rental_date) in (1,2,3,4,5) then "workday"
+when date_format(rental_date,'%W')  in ("Monday","Tuesday","Wednesday","Thrusday","Friday") then "workday"
 else "weekend"
 end as day_type
 from rental;
 #3
 select rental_duration from film;
 select sum(isnull(rental_duration)) from film;
-select title,coalesce(rental_duration,'not avaliable') as rental_duration from film
+select title,ifnull(rental_duration,'Not Available') as rental_duration from film
 order by title asc;
-select concat(first_name," ",last_name) as concated,left(email,3) as exrated from staff
+select concat(first_name," ",last_name) as full_name,substr(email,1,3) as email_prefix from customer
 order by last_name;
 
 #challenge 2
@@ -45,4 +48,4 @@ group by rating
 having avg_duration>120;
 
 #bonus
-select distinct last_name from actor;
+SELECT last_name FROM actor GROUP BY last_name HAVING COUNT(*) = 1;
