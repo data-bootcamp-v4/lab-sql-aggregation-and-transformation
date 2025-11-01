@@ -1,11 +1,17 @@
 use sakila;
 #1.1
-select min(length) as min_duration,
-max(length) as max_duration 
-from film;
+SELECT 
+    MIN(length) AS min_duration,
+    MAX(length) AS max_duration
+FROM film;
 #1.2
-select floor(avg(length))
- from film;
+SELECT 
+    CONCAT(
+        FLOOR(AVG(length) / 60), ' hours ',
+        FLOOR(MOD(AVG(length), 60)), ' minutes'
+    ) AS avg_duration
+FROM film;
+
 #2.1
 SELECT 
   DATEDIFF(MAX(rental_date), MIN(rental_date)) AS operating_days
@@ -50,9 +56,3 @@ having avg_duration>120;
 #bonus
 SELECT last_name FROM actor GROUP BY last_name HAVING COUNT(*) = 1;
 
-select min(length) as min_duration,
-max(length) as max_duration 
-from film;
-
-select floor(avg(length))
- from film;
