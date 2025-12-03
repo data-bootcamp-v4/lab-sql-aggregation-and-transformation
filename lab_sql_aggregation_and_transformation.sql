@@ -2,7 +2,7 @@ USE sakila;
 
 -- Challenge 1
 -- 1. 
--- 1.1
+-- 1.1 Shortest and longest movie durations
 SELECT MAX(length) AS max_duration,
 	MIN(length) AS min_duration
 FROM film;
@@ -44,7 +44,7 @@ ORDER BY title ASC;
 
 -- 4. 
 SELECT CONCAT(first_name, ' ', last_name) AS full_name,
-	LEFT(email, 3) AS email_perfix
+	LEFT(email, 3) AS email_prefix  -- SUBSTRING(email, 1, 3)
 FROM customer
 ORDER BY last_name ASC;
 
@@ -56,12 +56,12 @@ FROM film
 WHERE release_year IS NOT NULL;
 
 -- 1.2 
-SELECT DISTINCT rating, COUNT(rating) AS count_rating
+SELECT rating, COUNT(rating) AS count_rating
 FROM film
 GROUP BY rating;
 
 -- 1.3 
-SELECT DISTINCT rating, COUNT(rating) AS count_rating
+SELECT rating, COUNT(rating) AS count_rating
 FROM film
 GROUP BY rating
 ORDER BY count_rating DESC;
@@ -82,6 +82,7 @@ HAVING avg_duration > 120;
 -- 3. 
 SELECT last_name, COUNT(last_name) AS count_repeated_last_name
 FROM actor
-GROUP BY last_name;
+GROUP BY last_name
+HAVING COUNT(last_name) = 1;
 
 
