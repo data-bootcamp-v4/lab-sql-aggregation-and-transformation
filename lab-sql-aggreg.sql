@@ -4,9 +4,9 @@ SHOW TABLES;
 SELECT *
 FROM film;
 
-SELECT
-MIN(length) AS min_lenght,
-MAX(length) AS max_length
+SELECT 
+MAX(rental_duration) AS max_duration, 
+MIN(rental_duration) AS min_duration 
 FROM film;
 
 SELECT
