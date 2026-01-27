@@ -101,20 +101,17 @@ ORDER BY avg_length DESC;
 -- 2.2 Identify which ratings have a mean duration of over two hours in order to help 
 -- select films for customers who prefer longer movies.
 
-SELECT rating, ROUND(AVG(length), 2) AS avg_length
-FROM film
-GROUP BY rating
-HAVING AVG(length) > 120;
-
--- Bonus: determine which last names are not repeated in the table actor.
-
 SELECT rating, ROUND(AVG(length), 2) AS avg_length 
 FROM film 
 GROUP BY rating 
 HAVING avg_length > 120;
 
+-- Bonus: determine which last names are not repeated in the table actor.
 
-
+SELECT last_name
+FROM actor
+GROUP BY last_name
+HAVING COUNT(*) = 1;
 
 
 
