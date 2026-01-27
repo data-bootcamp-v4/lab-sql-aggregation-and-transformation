@@ -106,14 +106,12 @@ FROM film
 GROUP BY rating
 HAVING AVG(length) > 120;
 
-
 -- Bonus: determine which last names are not repeated in the table actor.
-SELECT rating, ROUND(AVG(length), 2) AS avg_length
-FROM film
-GROUP BY rating
-HAVING AVG(length) > 120;
 
-
+SELECT rating, ROUND(AVG(length), 2) AS avg_length 
+FROM film 
+GROUP BY rating 
+HAVING avg_length > 120;
 
 
 
