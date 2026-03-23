@@ -4,13 +4,13 @@
 
 -- 1.1 Duración mínima y máxima
 SELECT 
-    MAX(length) AS max_duration,
-    MIN(length) AS min_duration
+    MAX(rental_duration) AS max_duration,
+    MIN(rental_duration) AS min_duration
 FROM film;
 
 -- 1.2 Duración media en horas y minutos (sin decimales)
 SELECT 
-    CONCAT(FLOOR(AVG(length) / 60), ' h ', FLOOR(AVG(length) % 60), ' min') AS average_duration
+    CONCAT(FLOOR(AVG(rental_duration) / 60), ' h ', FLOOR(AVG(rental_duration) % 60), ' min') AS average_duration
 FROM film;
 
 -- 2.1 Número de días operando
