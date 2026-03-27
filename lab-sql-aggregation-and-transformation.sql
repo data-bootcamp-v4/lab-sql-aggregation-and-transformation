@@ -1,5 +1,6 @@
 USE sakila;
 --  1.1 Determine the shortest and longest movie durations and name the values as max_duration and min_duration.
+
 SELECT length AS max_duration
 FROM film
 ORDER BY length DESC;
@@ -7,6 +8,7 @@ ORDER BY length DESC;
 SELECT length AS min_duration
 FROM film
 ORDER BY length ASC;
+
 --  1.2. Express the average movie duration in hours and minutes. Don't use decimals.
 --   Hint: Look for floor and round functions.
 SELECT 
@@ -45,11 +47,10 @@ FROM rental;
     -- Hint: Look for the IFNULL() function.
     
 SELECT 
-title,
-ISNULL(rental_duration)
-FROM film
-ORDER BY title ASC
-;
+	title, 
+	IFNULL(rental_duration, 'Not Available') AS rental_duration 
+FROM film 
+ORDER BY title ASC;
 
 SELECT 
     title,
@@ -103,5 +104,6 @@ GROUP BY rating
 HAVING film_duration_avg > 120
 ;
 -- determine which last names are not repeated in the table actor.
+
 SELECT DISTINCT last_name
-FROM actor
+FROM actor;
