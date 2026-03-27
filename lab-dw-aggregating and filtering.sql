@@ -22,6 +22,7 @@ SELECT MAX(rental_date)
 FROM rental; 
 
 SELECT DATEDIFF("2006-02-14", "2005-05-24") AS operation_days 
+
 -- 2.2 Retrieve rental information and add two additional columns to show the month and weekday of the rental. Return 20 rows of results.
 SELECT 
 	MONTH(rental_date) AS month,
