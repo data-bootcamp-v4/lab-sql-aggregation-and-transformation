@@ -3,11 +3,13 @@ USE sakila;
 
 SELECT length AS max_duration
 FROM film
-ORDER BY length DESC;
+ORDER BY length DESC
+LIMIT 1;
 
 SELECT length AS min_duration
 FROM film
-ORDER BY length ASC;
+ORDER BY length ASC
+LIMIT 1;
 
 --  1.2. Express the average movie duration in hours and minutes. Don't use decimals.
 --   Hint: Look for floor and round functions.
@@ -104,6 +106,7 @@ GROUP BY rating
 HAVING film_duration_avg > 120
 ;
 -- determine which last names are not repeated in the table actor.
-
-SELECT DISTINCT last_name
-FROM actor;
+SELECT last_name
+FROM actor
+GROUP BY last_name
+HAVING COUNT(*) = 1;
