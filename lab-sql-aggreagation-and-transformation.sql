@@ -4,6 +4,8 @@ USE sakila;
 -- 1.1 Determine the shortest and longest movie durations and name the values as max_duration and min_duration.
 -- Hint: Look for floor and round functions.
 SELECT MAX(length) AS max_duration, MIN(length) AS min_duration FROM film;
+-- Hint: Look for floor and round functions.
+SELECT MAX(length) AS max_duration, MIN(length) AS min_duration FROM film;
 -- 1.2. Express the average movie duration in hours and minutes. Don't use decimals.
 -- Hint: Look for floor and round functions. 
 SELECT FLOOR (AVG(length)/60) AS avg_hours,
