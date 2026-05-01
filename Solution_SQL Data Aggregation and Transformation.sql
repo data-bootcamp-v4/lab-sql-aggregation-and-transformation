@@ -58,9 +58,10 @@ LIMIT 20;
 --  the query should still be written to handle such cases in the future.
 -- Hint: Look for the IFNULL() function.
 
+
 SELECT 
     title,
-    IFNULL(rental_duration, 'Not Available') AS rental_duration_info
+    IFNULL(CAST(rental_duration AS CHAR), 'Not Available') AS rental_duration_info
 FROM film
 ORDER BY title ASC;
 
@@ -95,10 +96,10 @@ ORDER BY rating ASC;
 --  adjust purchasing decisions accordingly.
 SELECT 
     rating,
-    COUNT(*) AS total_films
+    COUNT(*) AS number_films
 FROM film
 GROUP BY rating
-ORDER BY total_films ASC;
+ORDER BY number_films DESC;
 
 -- Using the film table, determine:
 -- 2.1 The mean film duration for each rating, and sort the results in descending order of the mean duration.
@@ -106,7 +107,7 @@ ORDER BY total_films ASC;
 -- This will help identify popular movie lengths for each category.
 SELECT 
     rating,
-    ROUND(AVG(length),2) AS duration_film
+    ROUND(AVG(length), 2) AS duration_film
 FROM film
 GROUP BY rating
 ORDER BY duration_film DESC;
@@ -115,10 +116,15 @@ ORDER BY duration_film DESC;
 -- Bonus: determine which last names are not repeated in the table actor.
 SELECT 
 	rating,
-	AVG(length) AS avg_duration
+	ROUND(AVG(length)) AS avg_duration
 FROM film
 GROUP BY rating
-HAVING avg_duration >120;
-
-
-
+HAVING avg_duration >120
+ORDER BY avg_duration DESC;
+SELECT 
+    rating,
+    ROUND(AVG(length)) AS avg_duration
+FROM film
+GROUP BY rating
+HAVING avg_duration > 120
+ORDER BY avg_duration DESC;
