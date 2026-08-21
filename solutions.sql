@@ -6,8 +6,8 @@ SELECT * FROM film;
 SELECT MAX(length) AS max_duration, MIN(length) AS min_duration FROM film;
 
 SELECT 
-    FLOOR( AVG(length) / 60 ) AS hours,
-    ROUND( AVG(length) % 60 ) AS minutes
+    FLOOR(AVG(length) / 60) AS hours,
+    ROUND(MOD(AVG(length), 60)) AS minutes
 FROM film;
 
 SELECT DATEDIFF(MAX(rental_date), MIN(rental_date)) AS date_difference FROM rental;
