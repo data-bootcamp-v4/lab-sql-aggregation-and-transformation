@@ -3,6 +3,7 @@ USE sakila;
 -- calcular la pelicula mas larga y la mas corta
 SELECT
 MIN(length) AS min_duration, 
+MAX(length) AS max_duration
 FROM film;
 
 -- ver el average en horas y minutos
