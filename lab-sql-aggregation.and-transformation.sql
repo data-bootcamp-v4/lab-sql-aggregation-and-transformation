@@ -1,61 +1,74 @@
 USE sakila;
 
--- 1
-SELECT c.name AS category, COUNT(fc.film_id) AS num_films
-FROM category c
-JOIN film_category fc ON c.category_id = fc.category_id
-GROUP BY c.name;
+-- Challenge 1
+-- 1.1
+SELECT MAX(length) AS max_duration, MIN(length) AS min_duration
+FROM film;
 
--- 2
-SELECT s.store_id, ci.city, co.country
-FROM store s
-JOIN address a ON s.address_id = a.address_id
-JOIN city ci ON a.city_id = ci.city_id
-JOIN country co ON ci.country_id = co.country_id;
+-- 1.2
+SELECT FLOOR(AVG(length) / 60) AS avg_hours,
+       ROUND(AVG(length) - FLOOR(AVG(length) / 60) * 60) AS avg_minutes
+FROM film;
+
+-- 2.1
+SELECT DATEDIFF(MAX(rental_date), MIN(rental_date)) AS days_operating
+FROM rental;
+
+-- 2.2
+SELECT *,
+       DATE_FORMAT(rental_date, '%M') AS rental_month,
+       DATE_FORMAT(rental_date, '%W') AS rental_weekday
+FROM rental
+LIMIT 20;
+
+-- 2.3 Bonus
+SELECT *,
+       CASE WHEN DAYOFWEEK(rental_date) IN (1, 7)
+            THEN 'weekend' ELSE 'workday' END AS DAY_TYPE
+FROM rental
+LIMIT 20;
 
 -- 3
-SELECT i.store_id, SUM(p.amount) AS total_revenue
-FROM payment p
-JOIN rental r ON p.rental_id = r.rental_id
-JOIN inventory i ON r.inventory_id = i.inventory_id
-GROUP BY i.store_id;
+SELECT title, IFNULL(rental_duration, 'Not Available') AS rental_duration
+FROM film
+ORDER BY title ASC;
 
--- 4
-SELECT c.name AS category, ROUND(AVG(f.length), 2) AS avg_length
-FROM category c
-JOIN film_category fc ON c.category_id = fc.category_id
-JOIN film f ON fc.film_id = f.film_id
-GROUP BY c.name;
+-- 4 Bonus
+SELECT CONCAT(first_name, ' ', last_name) AS full_name,
+       LEFT(email, 3) AS email_prefix
+FROM customer
+ORDER BY last_name ASC;
 
--- 5
-SELECT c.name AS category, ROUND(AVG(f.length), 2) AS avg_length
-FROM category c
-JOIN film_category fc ON c.category_id = fc.category_id
-JOIN film f ON fc.film_id = f.film_id
-GROUP BY c.name
-ORDER BY avg_length DESC;
+-- Challenge 2
+-- 1.1
+SELECT COUNT(*) AS total_films
+FROM film;
 
--- 6
-SELECT f.title, COUNT(r.rental_id) AS rental_count
-FROM film f
-JOIN inventory i ON f.film_id = i.film_id
-JOIN rental r ON i.inventory_id = r.inventory_id
-GROUP BY f.film_id, f.title
-ORDER BY rental_count DESC
-LIMIT 10;
+-- 1.2
+SELECT rating, COUNT(*) AS num_films
+FROM film
+GROUP BY rating;
 
--- 7
-SELECT f.title, COUNT(i.inventory_id) AS copies_in_store_1
-FROM film f
-JOIN inventory i ON f.film_id = i.film_id
-WHERE f.title = 'Academy Dinosaur' AND i.store_id = 1
-GROUP BY f.title;
+-- 1.3
+SELECT rating, COUNT(*) AS num_films
+FROM film
+GROUP BY rating
+ORDER BY num_films DESC;
 
--- 8
-SELECT f.title,
-  CASE WHEN IFNULL(COUNT(i.inventory_id), 0) > 0
-       THEN 'Available' ELSE 'NOT available' END AS availability
-FROM film f
-LEFT JOIN inventory i ON f.film_id = i.film_id
-GROUP BY f.film_id, f.title
-ORDER BY f.title;
+-- 2.1
+SELECT rating, ROUND(AVG(length), 2) AS mean_duration
+FROM film
+GROUP BY rating
+ORDER BY mean_duration DESC;
+
+-- 2.2
+SELECT rating, ROUND(AVG(length), 2) AS mean_duration
+FROM film
+GROUP BY rating
+HAVING AVG(length) > 120;
+
+-- 3 Bonus
+SELECT last_name
+FROM actor
+GROUP BY last_name
+HAVING COUNT(*) = 1;
